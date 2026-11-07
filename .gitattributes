@@ -1,0 +1,10 @@
+# 1C 7.7 text sources: stored in git with LF, checked out with CRLF (Configurator/gcomp require CRLF)
+*.1s   text eol=crlf
+*.frm  text eol=crlf
+*.mdp  text eol=crlf
+*.ord  text eol=crlf
+*.bat  text eol=crlf
+
+# Binary
+*.mxl  binary
+*.MD   binary
