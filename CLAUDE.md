@@ -40,6 +40,7 @@ Each metadata object is a directory under its class folder:
 - Adding new metadata objects/attributes by hand in `.mdp` requires unique IDs; prefer making structural changes in the 1C Configurator and decompiling, and limit direct edits to module code (`.1s`).
 
 ## Git
+- Працюємо в одній гілці `main`, окремі гілки не створювати — репозиторій лише для відстеження власних змін, інших учасників немає.
 - Після кожного коміту одразу робити `git push` (для нової гілки — `git push -u origin <гілка>`).
 ## 1C 7.7 File Rules
 All .1s, .frm, .mdp, .ord files use Windows-1251 encoding with CRLF line endings (\r\n).
