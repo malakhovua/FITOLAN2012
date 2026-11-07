@@ -34,6 +34,15 @@ Each metadata object is a directory under its class folder:
 - `ГлобальныйМодуль.1s` — the global module (~12k lines, ~200 procedures/functions). Defines exported globals prefixed `гл…` (e.g. `глПользователь`, `глОбщиеУстановки`) plus shared constants (`Да`, `Нет`, `Гривня`, …) and common helpers used from all object modules — check here before adding a new utility.
 - `ПорядокОбъектов.ord` files preserve object ordering; `GUIDData`, `TagStream`, `ИдентификаторыКонфигурации.mdp`, `PictureGallery/` are internal data gcomp needs to round-trip — don't hand-edit.
 
+## Макети (.mxl) — tools/
+
+`.mxl` бінарні, але читаються й пишуться Python-інструментами (Linux, без 1С):
+- `tools/mxl77.py` — читання/запис формату MOXCEL без втрат (`read`, `write`, `parse`, `dump`).
+- `python3 tools/mxl_roundtrip.py` — перевірка: кожен макет `conf/` після читання й запису має збігатися побайтово. Запускати після змін у `mxl77.py`.
+- `tools/mxl_build.py` — конструктор нових макетів (сітка колонок, комірки, об'єднання, рамки, секції).
+- `python3 tools/build_print_forms.py` — будує макети нових друкованих форм (`АктПриймання`, `Вимога`). Ці макети правити в скрипті й перебудовувати; правки, зроблені в Конфігураторі, перезапишуться.
+Новий макет треба також додати рядком у `ПорядокОбъектов.ord` об'єкта. Перевірити, що макет відкривається, можна тільки в Конфігураторі після `compile.bat`.
+
 ## Working notes
 
 - Code is 1C 7.7 built-in language (Russian keywords: `Процедура … КонецПроцедуры`, `Функция … КонецФункции`, `Перем … Экспорт`). There is no 8.x syntax (no `&НаКлиенте`, no queries language of 8.x; 7.7 uses `Запрос` objects with its own text syntax).
