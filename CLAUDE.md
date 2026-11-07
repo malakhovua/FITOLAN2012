@@ -48,6 +48,9 @@ Each metadata object is a directory under its class folder:
 - Code is 1C 7.7 built-in language (Russian keywords: `Процедура … КонецПроцедуры`, `Функция … КонецФункции`, `Перем … Экспорт`). There is no 8.x syntax (no `&НаКлиенте`, no queries language of 8.x; 7.7 uses `Запрос` objects with its own text syntax).
 - Adding new metadata objects/attributes by hand in `.mdp` requires unique IDs; prefer making structural changes in the 1C Configurator and decompiling, and limit direct edits to module code (`.1s`).
 
+## Питання до замовника
+- Відкриті питання щодо доробок ведуться в `docs/питання_замовнику.md`; нові питання додавати туди, закриті переносити в розділ «Закриті» з відповіддю і датою.
+
 ## Git
 - Працюємо в одній гілці `main`, окремі гілки не створювати — репозиторій лише для відстеження власних змін, інших учасників немає.
 - Після кожного коміту одразу робити `git push` (для нової гілки — `git push -u origin <гілка>`).
