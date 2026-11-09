@@ -49,13 +49,13 @@ def akt():
     b.text(r, 11, 11, "№", halign="center")
     b.text(r, 12, 15, "", under=True)
     b.text(r, 16, L, ", у складі"); r += 1
-    b.text(r, 0, L, "СкладГолова", kind="expr", under=True); r += 1  # з вкладки «Комиссия» документа
+    b.text(r, 0, L, "СкладГолова", kind="expr", under=True); r += 1  # з вкладки «Акт приемки» документа
     caption(b, r, 0, L, "(посада, прізвище та ініціали кожного члена комісії)"); r += 1
     for expr in ["СкладЧлен1", "СкладЧлен2", "СкладЧлен3"]:
         b.text(r, 0, L, expr, kind="expr", under=True); r += 1
     b.height(r, 2 * LINE)
     b.text(r, 0, 3, "провела приймання", valign="bottom")
-    b.text(r, 4, L, "ПринятоПоАкту", kind="expr", valign="bottom", wrap=True, under=True); r += 1  # «Принято по акту»
+    b.text(r, 4, L, "ПринятоПоАкту", kind="expr", valign="bottom", wrap=True, under=True); r += 1
     caption(b, r, 4, L, "(назва наркотичних засобів, психотропних речовин чи прекурсорів (лікарських засобів))"); r += 1
     b.text(r, 0, 2, "які отримані")
     b.text(r, 3, 7, 'Формат(ДатаДок, "ДДДММММГГГГ")', kind="expr", under=True, halign="center")
@@ -65,12 +65,11 @@ def akt():
     b.text(r, 0, 3, "згідно з рахунком №")
     b.text(r, 4, 7, "НомерРахунку", kind="expr", under=True, halign="center")
     b.text(r, 8, 8, "від", halign="center")
-    b.text(r, 9, 13, 'Формат(ДатаДок, "ДДДММММГГГГ")', kind="expr", under=True, halign="center"); r += 1
-    b.text(r, 0, 8, "Під час проведення перевірки кількості (ваги)")
-    b.text(r, 9, L, "", under=True); r += 1
-    caption(b, r, 9, L, "(назва наркотичних засобів,"); r += 1
-    b.text(r, 0, L, "", under=True); r += 1
-    caption(b, r, 0, L, "психотропних речовин чи прекурсорів (лікарських засобів))"); r += 1
+    b.text(r, 9, 13, "ДатаРахунку", kind="expr", under=True, halign="center"); r += 1  # «Номер/Дата счета поставщика»
+    b.height(r, 2 * LINE)
+    b.text(r, 0, 8, "Під час проведення перевірки кількості (ваги)", valign="bottom")
+    b.text(r, 9, L, "ПроверенныеСредства", kind="expr", valign="bottom", wrap=True, under=True); r += 1
+    caption(b, r, 9, L, "(назва наркотичних засобів, психотропних речовин чи прекурсорів (лікарських засобів))"); r += 1
     b.text(r, 0, L, "встановлено такі результати:"); r += 1
     b.section("Шапка", 0, r - 1)
 
@@ -96,7 +95,7 @@ def akt():
     b.section("Строка", t, t)
     r = t + 2
 
-    # підвал: висновок комісії, підписи (ініціали та прізвище — з вкладки «Комиссия»)
+    # підвал: висновок комісії, підписи (ініціали та прізвище — з вкладки «Акт приемки»)
     p0 = r
     b.text(r, 0, L, "Висновок комісії:"); r += 1
     b.height(r, 3 * LINE)
