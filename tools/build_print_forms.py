@@ -49,12 +49,13 @@ def akt():
     b.text(r, 11, 11, "№", halign="center")
     b.text(r, 12, 15, "", under=True)
     b.text(r, 16, L, ", у складі"); r += 1
-    b.text(r, 0, L, "", under=True); r += 1
+    b.text(r, 0, L, "СкладГолова", kind="expr", under=True); r += 1  # з вкладки «Комиссия» документа
     caption(b, r, 0, L, "(посада, прізвище та ініціали кожного члена комісії)"); r += 1
-    b.text(r, 0, L, "", under=True); r += 1
-    b.text(r, 0, L, "", under=True); r += 1
-    b.text(r, 0, 3, "провела приймання")
-    b.text(r, 4, L, "", under=True); r += 1
+    for expr in ["СкладЧлен1", "СкладЧлен2", "СкладЧлен3"]:
+        b.text(r, 0, L, expr, kind="expr", under=True); r += 1
+    b.height(r, 2 * LINE)
+    b.text(r, 0, 3, "провела приймання", valign="bottom")
+    b.text(r, 4, L, "ПринятоПоАкту", kind="expr", valign="bottom", wrap=True, under=True); r += 1  # «Принято по акту»
     caption(b, r, 4, L, "(назва наркотичних засобів, психотропних речовин чи прекурсорів (лікарських засобів))"); r += 1
     b.text(r, 0, 2, "які отримані")
     b.text(r, 3, 7, 'Формат(ДатаДок, "ДДДММММГГГГ")', kind="expr", under=True, halign="center")
@@ -73,28 +74,38 @@ def akt():
     b.text(r, 0, L, "встановлено такі результати:"); r += 1
     b.section("Шапка", 0, r - 1)
 
-    # таблиця: №, назва, од., за рахунком, фактично, різниця
-    cols = [(0, 1), (2, 9), (10, 11), (12, 14), (15, 17), (18, 19)]
-    head = ["Порядковий номер", "Назва", "Одиниця виміру", "Кількість, що зазначена в рахунку",
-            "Кількість, що фактично отримана", "Різниця"]
+    # таблиця: №, назва, од., за рахунком, фактично, різниця (більше / менше)
     t = r
-    b.height(t, 36)
-    for (c1, c2), h in zip(cols, head):
-        b.text(t, c1, c2, h, size=9, halign="center", wrap=True, box=True)
-    b.section("ШапкаТаблицы", t, t)
-    t += 1
-    row = ["Ном", "ТМЦ.ПолнНаименование", "Ед", 'Формат(Кво, "Ч15.3")', "", ""]
-    align = ["center", "left", "center", "right", "right", "right"]
+    b.height(t, 22)
+    b.height(t + 1, 14)
+    for (c1, c2), h in zip([(0, 1), (2, 9), (10, 11), (12, 13), (14, 15)],
+                           ["Порядковий номер", "Назва", "Одиниця виміру", "Кількість, що зазначена в рахунку",
+                            "Кількість, що фактично отримана"]):
+        b.text(t, c1, c2, h, size=9, halign="center", wrap=True, box=True, rows=2)
+    b.text(t, 16, L, "Різниця", size=9, halign="center", box=True)
+    b.text(t + 1, 16, 17, "більше", size=9, halign="center", box=True)
+    b.text(t + 1, 18, L, "менше", size=9, halign="center", box=True)
+    b.section("ШапкаТаблицы", t, t + 1)
+    t += 2
+    cols = [(0, 1), (2, 9), (10, 11), (12, 13), (14, 15), (16, 17), (18, L)]
+    row = ["Ном", "ТМЦ.ПолнНаименование", "Ед", 'Формат(Кво, "Ч15.3")', 'Формат(ФактическиПолучено, "Ч15.3")',
+           "РазницаБольше", "РазницаМеньше"]
+    align = ["center", "left", "center", "right", "right", "right", "right"]
     for (c1, c2), e, a in zip(cols, row, align):
-        b.text(t, c1, c2, e, kind="expr" if e else "text", size=9, halign=a, wrap=(c1 == 2), box=True)
+        b.text(t, c1, c2, e, kind="expr", size=9, halign=a, wrap=(c1 == 2), box=True)
     b.section("Строка", t, t)
     r = t + 2
 
+    # підвал: висновок комісії, підписи (ініціали та прізвище — з вкладки «Комиссия»)
     p0 = r
-    for k, who in enumerate(["Голова комісії", "Члени комісії", "", ""]):
+    b.text(r, 0, L, "Висновок комісії:"); r += 1
+    b.height(r, 3 * LINE)
+    b.text(r, 0, L, "Заключение", kind="expr", valign="top", wrap=True, under=True); r += 2
+    for who, fio in [("Голова комісії", "ФИОГолова"), ("Члени комісії", "ФИОЧлен1"), ("", "ФИОЧлен2"),
+                     ("", "ФИОЧлен3")]:
         b.text(r, 0, 4, who)
         b.text(r, 6, 9, "", under=True)
-        b.text(r, 11, 16, "", under=True); r += 1
+        b.text(r, 11, 16, fio, kind="expr", under=True, halign="center"); r += 1
         caption(b, r, 6, 9, "(підпис)")
         caption(b, r, 11, 16, "(ініціали та прізвище)"); r += 1
     b.text(r, 0, 1, "М.П."); r += 1
